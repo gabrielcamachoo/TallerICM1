@@ -44,7 +44,7 @@ fun MainScreen(
                     text = "Total usuarios: ${users.size}", // Muestra la cantidad de usuarios
                     style = MaterialTheme.typography.titleLarge, // Estilo de texto grande
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 14.dp) // Margen interno
+                        .padding(horizontal = 100.dp, vertical = 25.dp) // Margen interno
                 )
             }
         }

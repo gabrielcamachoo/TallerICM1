@@ -1,13 +1,12 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // Alinea estas versiones con tu Kotlin del proyecto
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
 kotlin {
-    jvmToolchain(17) // ✅ usa JDK 17
+    jvmToolchain(17)
 }
 
 android {
@@ -24,10 +23,6 @@ android {
 
     buildFeatures { compose = true }
 
-    // ❌ En Kotlin 2.x NO usar composeOptions/kotlinCompilerExtensionVersion
-    // composeOptions { kotlinCompilerExtensionVersion = "1.5.15" }
-
-    // ✅ UNA sola sección y a 17
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -50,19 +45,23 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("com.google.android.material:material:1.12.0")
-    testImplementation(libs.junit)
     implementation("io.coil-kt:coil-compose:2.7.0")
 
+    // --- Ktor ---
     val ktor = "2.3.12"
     implementation("io.ktor:ktor-client-core:$ktor")
     implementation("io.ktor:ktor-client-okhttp:$ktor")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor")
     implementation("io.ktor:ktor-client-logging:$ktor")
-
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
+    // --- DEBUG ---
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    testImplementation(kotlin("test"))
+
+    // --- TESTS ---
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
