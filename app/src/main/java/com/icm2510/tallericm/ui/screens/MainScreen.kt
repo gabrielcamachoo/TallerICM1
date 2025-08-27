@@ -17,31 +17,43 @@ import androidx.compose.ui.unit.dp
 import com.icm2510.tallericm.data.model.User
 import com.icm2510.tallericm.ui.components.UserListItem
 
+
+
+/**
+ * Pantalla principal que muestra una lista de usuarios.
+ *
+ * @param users Lista de usuarios a mostrar.
+ * @param onUserClick Acción a ejecutar cuando se selecciona un usuario.
+ */
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
     users: List<User>,
     onUserClick: (User) -> Unit
 ) {
+    // LazyColumn permite renderizar listas de manera eficiente
     LazyColumn(modifier = Modifier.fillMaxSize()) {
+        // Cabecera fija en la parte superior que muestra el total de usuarios
         stickyHeader {
             Surface(
-                color = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.primary,  // Fondo con color del tema
+                contentColor = MaterialTheme.colorScheme.onPrimary // Color del texto
             ) {
                 Text(
-                    text = "Total usuarios: ${users.size}",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = "Total usuarios: ${users.size}", // Muestra la cantidad de usuarios
+                    style = MaterialTheme.typography.titleLarge, // Estilo de texto grande
                     modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 14.dp)
+                        .padding(horizontal = 16.dp, vertical = 14.dp) // Margen interno
                 )
             }
         }
 
+        // Renderiza cada usuario con su propio UserListItem
         items(users, key = { it.id }) { u ->
-            UserListItem(user = u) { onUserClick(u) }
+            UserListItem(user = u) { onUserClick(u) } // Al hacer click se ejecuta onUserClick
         }
-
+        // Agrega un espacio al final de la lista
         item { Spacer(Modifier.height(12.dp)) }
     }
 }

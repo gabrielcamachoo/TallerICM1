@@ -18,10 +18,16 @@ import coil.compose.AsyncImage
 import com.icm2510.tallericm.data.model.User
 import androidx.compose.foundation.clickable
 
+/**
+ * Pantalla de detalle que muestra la información completa de un usuario.
+ *
+ * @param user Objeto [User] con los datos del usuario seleccionado.
+ */
 @Composable
 fun DetailScreen(user: User) {
     val context = LocalContext.current
 
+    // Contenedor principal de la pantalla
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.surface
@@ -32,6 +38,7 @@ fun DetailScreen(user: User) {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Card con la foto del usuario
             Surface(
                 tonalElevation = 1.dp,
                 shadowElevation = 1.dp,
@@ -50,6 +57,7 @@ fun DetailScreen(user: User) {
                 }
             }
 
+            // Nombre completo del usuario
             Text(
                 text = "${user.firstName} ${user.lastName}",
                 style = MaterialTheme.typography.titleLarge,
@@ -61,6 +69,7 @@ fun DetailScreen(user: User) {
                     .padding(top = 16.dp, bottom = 8.dp)
             )
 
+            // Información adicional del usuario
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,7 +81,8 @@ fun DetailScreen(user: User) {
                     value = user.phone,
                     isLink = true
                 ) {
-                    val intent = Intent(Intent.ACTION_DIAL).apply {
+                    // Acción: abrir marcador con el número de teléfono
+                    val intent = Intent(Intent.ACTION_DIAL /*abre app de llamadas*/).apply {
                         data = Uri.parse("tel:${user.phone}")
                     }
                     context.startActivity(intent)
@@ -88,6 +98,14 @@ fun DetailScreen(user: User) {
     }
 }
 
+/**
+ * Composable auxiliar para mostrar una etiqueta + valor.
+ *
+ * @param label Texto de la etiqueta.
+ * @param value Valor a mostrar.
+ * @param isLink Indica si debe mostrarse como enlace (color distinto).
+ * @param onClick Acción a ejecutar si el texto es clickeable (ej: abrir llamada).
+ */
 @Composable
 private fun Info(
     label: String,
